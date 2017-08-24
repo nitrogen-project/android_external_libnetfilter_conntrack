@@ -669,16 +669,15 @@ int nfexp_query(struct nfct_handle *h,
 	        const enum nf_conntrack_query qt,
 	        const void *data)
 {
-	size_t size = 4096;	/* enough for now */
 	union {
-		char buffer[size];
+		char buffer[NFNL_QUERY_SIZE];
 		struct nfnlhdr req;
 	} u;
 
 	assert(h != NULL);
 	assert(data != NULL);
 
-	if (__build_query_exp(h->nfnlssh_exp, qt, data, &u.req, size) == -1)
+	if (__build_query_exp(h->nfnlssh_exp, qt, data, &u.req, NFNL_QUERY_SIZE) == -1)
 		return -1;
 
 	return nfnl_query(h->nfnlh, &u.req.nlh);
@@ -701,16 +700,15 @@ int nfexp_send(struct nfct_handle *h,
 	       const enum nf_conntrack_query qt,
 	       const void *data)
 {
-	size_t size = 4096;	/* enough for now */
 	union {
-		char buffer[size];
+		char buffer[NFNL_QUERY_SIZE];
 		struct nfnlhdr req;
 	} u;
 
 	assert(h != NULL);
 	assert(data != NULL);
 
-	if (__build_query_exp(h->nfnlssh_exp, qt, data, &u.req, size) == -1)
+	if (__build_query_exp(h->nfnlssh_exp, qt, data, &u.req, NFNL_QUERY_SIZE) == -1)
 		return -1;
 
 	return nfnl_send(h->nfnlh, &u.req.nlh);

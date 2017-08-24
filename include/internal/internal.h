@@ -85,4 +85,6 @@ struct nf_ct_tcp_flags {
 #define NFCT_BITMASK_AND	0
 #define NFCT_BITMASK_OR		1
 
+#define NFNL_QUERY_SIZE		4096	/* enough for now */
+
 #endif
